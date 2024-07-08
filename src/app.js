@@ -1,30 +1,29 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
 
+const app = express();
+const port = 3000;
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Routes
 const projectRoutes = require('./routes/projectRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
 
-// Middleware
-app.use(bodyParser.json());
-app.use(cors());
-
-// Rutas
-app.use('/api', projectRoutes);
-app.use('/api', taskRoutes);
-
-// Sincronizar con la base de datos
-sequelize.sync({ force: false }).then(() => {
-  console.log('Database synced');
-}).catch(err => {
-  console.error('Error syncing database:', err);
-});
-
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+  
+  sequelize.sync({ force: false })
+    .then(() => {
+      console.log('Database synced');
+    })
+    .catch(err => {
+      console.error('Error syncing database:', err);
+    });
 });

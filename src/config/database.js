@@ -1,7 +1,7 @@
 // config/database.js
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('Gestor-de-proyectos', 'Admin', '12345', {
   host: 'localhost',
   dialect: 'postgres', // o 'mysql', 'sqlite', 'mssql'
 });
