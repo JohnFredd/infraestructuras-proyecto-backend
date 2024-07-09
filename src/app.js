@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
+const logger = require('./logger');
 
 const app = express();
 const port = 3000;
@@ -17,13 +18,6 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
 
 app.listen(port, () => {
+  logger.info(`Server running on http://localhost:${port}`);
   console.log(`Server running on http://localhost:${port}`);
-  
-  sequelize.sync({ force: false })
-    .then(() => {
-      console.log('Database synced');
-    })
-    .catch(err => {
-      console.error('Error syncing database:', err);
-    });
 });
