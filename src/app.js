@@ -6,8 +6,13 @@ const logger = require('./config/logger');
 const app = express();
 const port = 3000;
 
-// Middlewares
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5000',
+    optionsSuccessStatus: 200,
+  };
+
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
