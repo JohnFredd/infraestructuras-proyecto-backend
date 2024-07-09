@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
-const logger = require('./logger');
+const logger = require('./config/logger');
 
 const app = express();
 const port = 3000;
